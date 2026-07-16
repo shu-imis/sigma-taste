@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% if target_kind == 'recipe' %}{% ui_label 'Report recipe' %}{% else %}{% ui_label 'Report note' %}{% endif %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% with hero_kicker='Community care' hero_description='Flag content that breaks community expectations. Stewards review every report by hand.' %}
+      {% if target_kind == 'recipe' %}
+        {% include 'core/partials/layout/hero_intro.html' with hero_kicker=hero_kicker hero_title='Report recipe' hero_description=hero_description %}
+      {% else %}
+        {% include 'core/partials/layout/hero_intro.html' with hero_kicker=hero_kicker hero_title='Report note' hero_description=hero_description %}
+      {% endif %}
+    {% endwith %}
+  </section>
+
+  <section class="panel narrow-panel">
+    <div class="panel-body form-grid panel-form">
+      <div class="full">
+        <p class="meta">{% ui_title 'Reporting' %}</p>
+        <p><strong>{{ target_summary }}</strong></p>
+      </div>
+      <form method="post" class="full form-grid panel-form">
+        {% csrf_token %}
+        {% include 'core/partials/moderation/report_form_fields.html' with report_form_prefix='report-page' %}
+        <div class="full action-row form-actions">
+          <button class="btn btn-primary" type="submit">{% ui_label 'Send report' %}</button>
+          <a class="btn btn-ghost" href="{% url 'web-recipe-detail' recipe_id %}">{% ui_label 'Back to recipe' %}</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

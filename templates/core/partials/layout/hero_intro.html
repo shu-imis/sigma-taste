@@ -1,0 +1,6 @@
+{% load avatar_display ui_copy %}
+{% with title_lang=hero_title|ugc_lang description_lang=hero_description|ugc_lang %}
+<span class="hero-kicker">{% ui_label hero_kicker %}</span>
+<h1{% if title_lang %} lang="{{ title_lang }}"{% endif %}{% if hero_title_case != 'title' %} class="hero-title-label"{% endif %}>{% if hero_title_case == 'title' %}{{ hero_title|ui_title }}{% else %}{% ui_label hero_title %}{% endif %}</h1>
+<p{% if description_lang %} lang="{{ description_lang }}"{% endif %}>{{ hero_description }}</p>
+{% endwith %}

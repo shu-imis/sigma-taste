@@ -1,0 +1,25 @@
+{% load ui_copy %}
+<div class="empty-state" data-empty-state>
+  <span class="empty-state-kicker">{% ui_label empty_state.kicker %}</span>
+  <h3 class="empty-state-title">{{ empty_state.title|ui_title }}</h3>
+  <p class="empty-state-copy">{{ empty_state.copy }}</p>
+
+  {% if empty_state.facts %}
+    <div class="empty-state-facts">
+      {% for fact in empty_state.facts %}
+        <div>
+          <strong>{{ fact.title|ui_title }}</strong>
+          <span class="meta">{{ fact.body }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if empty_state.actions %}
+    <div class="action-row empty-state-actions">
+      {% for action in empty_state.actions %}
+        <a class="btn {% if action.tone == 'primary' %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ action.href }}">{% ui_label action.label %}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

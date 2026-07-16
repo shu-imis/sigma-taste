@@ -1,0 +1,343 @@
+ol {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+li {
+  color: inherit;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.form-grid > * {
+  min-width: 0;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+.helper {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+.card p,
+.panel p,
+.list li,
+.meta,
+.helper {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.meta {
+  color: var(--muted-strong);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: 1.62;
+  letter-spacing: 0;
+}
+
+.meta-inline {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.badge {
+  display: inline-block;
+  margin-right: var(--space-1);
+  margin-bottom: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--line);
+  background: var(--sand);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.15;
+  letter-spacing: 0.28px;
+  text-transform: uppercase;
+}
+
+.top-space {
+  margin-top: var(--space-7);
+}
+
+.top-space-sm {
+  margin-top: var(--space-3);
+}
+
+.tight-title {
+  margin: 0;
+  font-family: var(--font-display);
+  text-transform: none;
+  letter-spacing: 0.12px;
+  text-wrap: balance;
+}
+
+.panel-header {
+  display: grid;
+  gap: var(--space-tight);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-header .tight-title,
+.panel-header p,
+.panel-header .meta {
+  margin: 0;
+}
+
+.panel-body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.panel-body > * {
+  min-width: 0;
+}
+
+.side-panel {
+  gap: var(--space-3);
+}
+
+.side-panel-link-list .side-panel-body,
+.side-panel-info-list .side-panel-body {
+  gap: 0;
+}
+
+.quick-links-grid {
+  gap: var(--space-4);
+}
+
+.profile-panel {
+  gap: var(--surface-stack-gap);
+}
+
+.profile-summary {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.profile-summary-block {
+  display: grid;
+  gap: var(--space-2);
+  padding: clamp(14px, 1.45vw, 18px);
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.profile-summary-block .helper,
+.profile-summary-block .meta {
+  margin: 0;
+}
+
+.profile-summary-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--title-profile-name);
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.profile-summary-name.is-cjk {
+  font-family: var(--font-body);
+  font-size: var(--title-profile-name-cjk);
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.profile-summary-name.is-cjk-mixed {
+  font-family: var(--font-body);
+  font-size: var(--title-profile-name-cjk-mixed);
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.section-empty {
+  display: block;
+  margin: 0;
+  padding: 14px var(--space-4);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface-soft) 0%, var(--surface) 100%);
+  color: var(--muted-strong);
+  line-height: 1.68;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-wrap: pretty;
+}
+
+/* Links inside running copy and list contexts must read as links without
+   relying on color alone (WCAG 1.4.1); navigation, buttons, and card-title
+   links already signal their role through their control shape. */
+.meta a,
+.card-body p a,
+.list-link-title {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.side-panel-summary-rows {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.side-panel-summary-note {
+  display: grid;
+  gap: var(--space-micro);
+}
+
+.side-panel-summary-note .helper {
+  margin: 0;
+}
+
+.side-panel-summary-label {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+}
+
+.generated-recipe-panel-body > p {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.generated-recipe-detail-stack {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.generated-recipe-detail-stack > * {
+  min-width: 0;
+}
+
+h3.tight-title,
+.panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--title-subsection);
+  line-height: 1.14;
+  letter-spacing: 0.12px;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.action-row > * {
+  min-width: 0;
+}
+
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.info-list li {
+  display: grid;
+  gap: var(--space-1);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.info-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.info-list strong {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.info-list .meta {
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+.recipe-admin-actions {
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.recipe-admin-actions .inline-form {
+  margin-top: 0;
+}
+
+.recipe-admin-actions .btn {
+  min-width: 132px;
+}
+
+.recipe-admin-actions .recipe-admin-remove {
+  margin-left: auto;
+}
+
+.inline-form {
+  margin-top: var(--space-3);
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.inline-form.inline-form-flat {
+  margin-top: 0;
+}
+
+.review-reaction-form .btn,
+.review-card-foot .review-report-link {
+  min-height: 36px;
+  min-width: 42px;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.review-reaction-form .btn.is-active,
+.review-reaction-form .btn.is-active:hover,
+.review-reaction-form .btn.is-active:focus-visible {
+  border-color: var(--ink-strong);
+  background: var(--ink-strong);
+  color: var(--ink-inverse);
+}

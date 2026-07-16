@@ -1,0 +1,19 @@
+{% load ui_copy %}
+<div class="full">
+  <label for="{{ report_form_prefix }}-reason">{{ report_form.fields.reason.label|ui_title }}</label>
+  <select id="{{ report_form_prefix }}-reason" name="reason">
+    {% for reason_value, reason_label in report_reason_choices %}
+      <option value="{{ reason_value }}">{{ reason_label }}</option>
+    {% endfor %}
+  </select>
+</div>
+<div class="full">
+  <label for="{{ report_form_prefix }}-details">{{ report_form.fields.details.label|ui_title }}</label>
+  <textarea
+    id="{{ report_form_prefix }}-details"
+    name="details"
+    rows="{{ report_form.fields.details.widget.attrs.rows }}"
+    maxlength="{{ report_form.fields.details.max_length }}"
+    placeholder="Add context that helps stewards decide"
+  ></textarea>
+</div>

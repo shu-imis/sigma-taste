@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'AI recipe studio' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='AI-assisted cooking' hero_title='AI recipe studio' hero_description='Start with what is already in your kitchen and shape it into a draft with clearer structure, timing, and direction.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+  </section>
+
+  <div class="split top-space">
+    <div class="content-stack">
+      {% include 'core/partials/layout/panel_shell.html' with panel_title='Shape an AI draft' panel_subtitle='Choose a model, set the boundaries, and generate a first pass you can keep refining.' panel_body_partial='core/partials/ai/generate_form.html' %}
+
+      {% if generated_recipe %}
+        {% include 'core/partials/layout/panel_shell.html' with panel_header_partial='core/partials/ai/generated_recipe_panel_header.html' panel_body_partial='core/partials/ai/generated_recipe_panel_body.html' panel_body_class='generated-recipe-panel-body' %}
+      {% endif %}
+    </div>
+
+    <aside class="side-stack">
+      {% for panel in ai_studio_sidebar_panels %}
+        {% include 'core/partials/layout/side_panel.html' with panel=panel %}
+      {% endfor %}
+    </aside>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  {% include 'core/partials/scripts/form_progress.html' %}
+{% endblock %}

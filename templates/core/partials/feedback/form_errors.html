@@ -1,0 +1,16 @@
+{% load ui_copy %}
+{% if form.non_field_errors or form.errors %}
+  <ul class="form-error-list" role="list" aria-live="polite">
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        {% comment %}Django points aria-describedby at "<auto_id>_error" for fields
+          with errors; the first item per field carries that id on an inner span so
+          the visible list markup stays unchanged.{% endcomment %}
+        <li>{% if forloop.first and field.id_for_label %}<span id="{{ field.id_for_label }}_error">{% endif %}{{ field.label|ui_title }}: {{ error }}{% if forloop.first and field.id_for_label %}</span>{% endif %}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}

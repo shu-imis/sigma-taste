@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'Recipe studio' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='Publish a recipe' hero_title='Recipe studio' hero_description='Turn a dish you care about into a recipe page with clear structure, practical steps, and a voice that feels like your own.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+  </section>
+
+  <div class="split top-space">
+    {% include 'core/partials/layout/panel_shell.html' with panel_title='Shape a recipe draft' panel_subtitle='Set the structure, write the method, and prepare it to be shared.' panel_body_partial='core/partials/recipe/create_form.html' %}
+
+    <aside class="side-stack">
+      {% for panel in recipe_studio_sidebar_panels %}
+        {% include 'core/partials/layout/side_panel.html' with panel=panel %}
+      {% endfor %}
+    </aside>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  {% include 'core/partials/scripts/form_progress.html' %}
+{% endblock %}

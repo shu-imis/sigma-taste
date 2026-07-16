@@ -1,0 +1,12 @@
+{% with panel_heading_level=heading_level|default:'2' %}
+  <section class="panel{% if panel_class %} {{ panel_class }}{% endif %}" data-panel-shell{% if panel_extra_attrs %} {{ panel_extra_attrs|safe }}{% endif %}>
+    {% if panel_header_partial %}
+      {% include panel_header_partial %}
+    {% else %}
+      {% include 'core/partials/layout/section_header.html' with heading_level=panel_heading_level title=panel_title subtitle=panel_subtitle %}
+    {% endif %}
+    <div class="panel-body{% if panel_body_class %} {{ panel_body_class }}{% endif %}">
+      {% include panel_body_partial %}
+    </div>
+  </section>
+{% endwith %}

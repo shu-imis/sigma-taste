@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'Report queue' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='Steward tools' hero_title='Report queue' hero_description='Review incoming reports, resolve valid issues, and keep recipe conversations constructive.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+  </section>
+
+  {% include 'core/partials/layout/page_section_head.html' with title='Pending reports' %}
+  <div class="cards cards-reviews">
+    {% for report in pending_reports %}
+      <article class="card review-card">
+        <header class="review-card-head">
+          <div class="review-author-meta">
+            {% include 'core/partials/moderation/report_target_ref.html' %}
+            <span class="meta">{{ report.created_at|date:"Y-m-d H:i" }} · {{ report.get_reason_display }}</span>
+          </div>
+        </header>
+        <div class="card-body review-card-body">
+          <p><strong>{% ui_title 'reported by' %}:</strong> {{ report.reporter.username|default:'Former member' }}</p>
+          {% if report.target_exists and report.target_url %}
+            <p><a href="{{ report.target_url }}">{{ report.target_summary|default:'Open reported content' }}</a></p>
+          {% else %}
+            <p>{{ report.target_summary|default:'Target content is no longer available.' }}</p>
+          {% endif %}
+          {% if report.details %}
+            <p>{{ report.details }}</p>
+          {% endif %}
+        </div>
+        <footer class="card-foot review-card-foot">
+          <form method="post" action="{% url 'web-report-resolve' report.id %}" class="report-decision-form">
+            {% csrf_token %}
+            <div>
+              <label for="resolve-note-{{ report.id }}">{{ resolve_form.fields.resolution_note.label|ui_title }}</label>
+              <textarea id="resolve-note-{{ report.id }}" name="resolution_note" rows="{{ resolve_form.fields.resolution_note.widget.attrs.rows }}" maxlength="{{ resolve_form.fields.resolution_note.max_length }}"></textarea>
+            </div>
+            <div class="action-row report-decision-actions">
+              <button class="btn btn-primary" type="submit" name="action" value="resolved">{% ui_label 'Resolve report' %}</button>
+              <button class="btn btn-ghost" type="submit" name="action" value="dismissed">{% ui_label 'Dismiss report' %}</button>
+              {% if report.target_type == 'review' and report.target_exists %}
+                <button class="btn btn-danger" type="submit" formaction="{% url 'web-review-delete' report.target_id %}" data-confirm-submit="Remove this note? Pending reports about it will be resolved.">{% ui_label 'Remove note' %}</button>
+              {% endif %}
+            </div>
+          </form>
+        </footer>
+      </article>
+    {% empty %}
+      {% include 'core/partials/feedback/block.html' with surface='empty' feedback_kind='empty' role='status' live='polite' text='No pending reports right now.' %}
+    {% endfor %}
+  </div>
+
+  {% include 'core/partials/layout/page_section_head.html' with title='Recent decisions' %}
+  <div class="cards cards-reviews">
+    {% for report in reviewed_reports %}
+      <article class="card review-card">
+        <header class="review-card-head">
+          <div class="review-author-meta">
+            {% include 'core/partials/moderation/report_target_ref.html' %}
+            <span class="meta">{{ report.get_status_display }} · {{ report.reviewed_at|date:"Y-m-d H:i" }}</span>
+          </div>
+        </header>
+        <div class="card-body review-card-body">
+          <p><strong>{% ui_title 'reason' %}:</strong> {{ report.get_reason_display }}</p>
+          <p><strong>{% ui_title 'reviewer' %}:</strong> {{ report.reviewer.username|default:'Unknown' }}</p>
+          {% if report.resolution_note %}
+            <p>{{ report.resolution_note }}</p>
+          {% endif %}
+        </div>
+      </article>
+    {% empty %}
+      {% include 'core/partials/feedback/block.html' with surface='empty' feedback_kind='empty' role='status' live='polite' text='No reviewed reports yet.' %}
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  {% include 'core/partials/scripts/confirm_submit.html' %}
+{% endblock %}

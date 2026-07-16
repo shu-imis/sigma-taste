@@ -1,0 +1,8 @@
+{% load ui_copy %}
+{% if recipe.status != target_status %}
+  <form method="post" action="{% url 'web-recipe-status' recipe.id %}" class="inline-form inline-form-flat">
+    {% csrf_token %}
+    <input type="hidden" name="status" value="{{ target_status }}">
+    <button class="btn {{ button_class }}" type="submit">{% ui_label button_label %}</button>
+  </form>
+{% endif %}

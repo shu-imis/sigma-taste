@@ -1,0 +1,4 @@
+{% load avatar_display %}
+{% with variant=avatar_source|avatar_variant %}
+  <span class="{% if avatar_class %}{{ avatar_class }} {% endif %}avatar-glyph{% if variant != 'default' %} is-{{ variant }}{% endif %}" data-glyph="{{ avatar_source|avatar_glyph }}"{% if aria_hidden %} aria-hidden="true"{% endif %}{% if aria_label %} role="img" aria-label="{{ aria_label }}"{% endif %}></span>
+{% endwith %}

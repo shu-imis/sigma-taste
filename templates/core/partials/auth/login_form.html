@@ -1,0 +1,29 @@
+{% load ui_copy %}
+<form method="post" class="form-grid panel-form">
+  {% csrf_token %}
+  {% if next_url %}
+    <input type="hidden" name="next" value="{{ next_url }}">
+  {% endif %}
+  {% if form.errors %}
+    {% include 'core/partials/feedback/block.html' with full=1 tone='error' feedback_kind='form-error' role='alert' live='assertive' text="We couldn't sign you in with those details. Please try again." %}
+    {% comment %}Field-level errors stay summarized in the shared message above; these
+      visually-hidden anchors give each field's aria-describedby a real target.{% endcomment %}
+    {% for field in form %}
+      {% if field.errors and field.id_for_label %}
+        <p class="visually-hidden" id="{{ field.id_for_label }}_error">{{ field.label|ui_title }}: {{ field.errors|join:' ' }}</p>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="full">
+    <label for="{{ form.username.id_for_label }}">{{ form.username.label|ui_title }}</label>
+    {{ form.username }}
+  </div>
+  <div class="full">
+    <label for="{{ form.password.id_for_label }}">{{ form.password.label|ui_title }}</label>
+    {{ form.password }}
+  </div>
+  <div class="full action-row form-actions">
+    <button class="btn btn-primary" type="submit">{% ui_label 'Sign in' %}</button>
+    <a class="btn btn-ghost" href="{% url 'web-register' %}">{% ui_label 'Create account' %}</a>
+  </div>
+</form>

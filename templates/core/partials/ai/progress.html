@@ -1,0 +1,17 @@
+{% load ui_copy %}
+<div class="full ai-progress" data-ai-progress hidden aria-hidden="true">
+  <div class="ai-progress-head">
+    <span class="ai-progress-title" data-ai-progress-title>{{ progress_title|ui_title }}</span>
+    <span class="meta"><span class="ai-progress-meta-label">{% ui_title 'elapsed' %}:</span> <span data-ai-elapsed>0 s</span></span>
+  </div>
+  <div
+    class="ai-progress-bar"
+    data-ai-progress-bar
+    role="progressbar"
+    aria-label="{{ progress_aria_label }}"
+    aria-valuetext="{{ progress_stage }}"
+  >
+    <span class="ai-progress-fill"></span>
+  </div>
+  <div class="meta" data-ai-stage role="status" aria-live="polite" aria-atomic="true">{{ progress_stage }}</div>
+</div>

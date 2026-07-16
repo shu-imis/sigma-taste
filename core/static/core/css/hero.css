@@ -1,0 +1,85 @@
+.hero {
+  margin-top: var(--section-gap);
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, var(--surface-soft) 0%, var(--sand) 100%);
+  padding: clamp(26px, 3.4vw, 42px);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: clamp(12px, 1.8vw, 18px);
+  align-content: start;
+}
+
+.hero-kicker {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--title-hero-default);
+  line-height: 0.98;
+  letter-spacing: 0.08px;
+}
+
+/* Label-style hero titles arrive in sentence case; the uppercase look stays in CSS. */
+.hero h1.hero-title-label {
+  text-transform: uppercase;
+}
+
+.hero p {
+  margin: 0;
+  max-width: 48ch;
+  font-size: var(--fs-md);
+  color: var(--muted-strong);
+  line-height: 1.68;
+}
+
+.hero-support {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.meta-tokens-dotted .meta-token-note {
+  color: var(--muted);
+}
+
+.hero-meta-note {
+  white-space: nowrap;
+}
+
+.hero-group-discovery h1 {
+  font-size: var(--hero-discovery-title);
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-tight);
+}
+
+.hero .search-bar {
+  margin-top: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.hero-group-detail h1 {
+  font-size: var(--hero-detail-title);
+}
+
+.hero-group-studio h1 {
+  font-size: var(--hero-studio-title);
+}
+
+.hero-group-account h1 {
+  font-size: var(--hero-account-title);
+}

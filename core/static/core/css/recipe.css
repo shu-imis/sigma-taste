@@ -1,0 +1,174 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  padding: var(--space-3) 0;
+  color: var(--muted);
+}
+
+.list.list-divided li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.list.list-divided li:last-child {
+  border-bottom: 0;
+}
+
+.recipe-info-card {
+  border-color: var(--card-border-color);
+  padding: var(--card-padding-regular);
+  gap: var(--card-gap-regular);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.recipe-info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.recipe-info-list li {
+  margin: 0;
+  min-width: 0;
+}
+
+.ingredient-item,
+.step-item {
+  border: 1px solid var(--line);
+  background: var(--sand);
+  padding: var(--space-3);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ingredient-item {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.ingredient-name {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ingredient-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.22px;
+  line-height: 1.48;
+  font-variant-numeric: tabular-nums;
+  min-width: 0;
+}
+
+.ingredient-meta span {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+  background: var(--surface);
+}
+
+.step-index {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sand);
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.25px;
+  line-height: 1;
+}
+
+.step-copy {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.72;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.recipe-empty {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.recipe-video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  background: var(--sand);
+  overflow: hidden;
+}
+
+/* Static fallback sits under the iframe: visible while the player is slow or
+   fails to load, naturally covered once the opaque player document paints. */
+.recipe-video-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.recipe-video-embed iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.report-dialog {
+  width: min(480px, 90vw);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  padding: clamp(var(--space-5), 3vw, var(--space-8));
+  color: var(--ink);
+}
+
+.report-dialog::backdrop {
+  background: var(--overlay-backdrop);
+}
+
+/* The dialog title arrives in sentence case; the uppercase look stays in CSS. */
+.report-dialog .tight-title {
+  text-transform: uppercase;
+}

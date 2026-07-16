@@ -1,0 +1,2 @@
+{% load ui_copy %}
+<strong>{% if report.target_type == 'review' %}{% ui_title 'note' %}{% else %}{% ui_title 'recipe' %}{% endif %} #{{ report.target_id }}</strong>

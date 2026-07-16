@@ -1,0 +1,190 @@
+/* Form system: one anatomy for every input-taking surface —
+   label (12px ink) → control → help text (12px, tucked under the control).
+   Fields are spaced only by the .form-grid gap, so optional help text never
+   breaks the vertical rhythm. */
+
+/* ---------- Search bars ---------- */
+
+.search-bar {
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) repeat(3, minmax(120px, 1fr)) auto;
+  gap: var(--space-2);
+  align-items: end;
+}
+
+.search-bar.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 620px;
+}
+
+.search-bar > * {
+  min-width: 0;
+}
+
+/* ---------- Labels, legends, help text, errors ---------- */
+
+label,
+.checkbox-group legend {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.panel-form p.meta {
+  margin: var(--space-2) 0 0;
+}
+
+.form-error-list {
+  margin: 0;
+  padding-left: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.form-error-list li {
+  line-height: 1.5;
+}
+
+/* ---------- Text controls ---------- */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  padding: 0 var(--space-3);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  transition:
+    border-color 0.16s ease-out,
+    background-color 0.16s ease-out,
+    box-shadow 0.16s ease-out;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+select {
+  height: var(--control-height);
+  min-height: var(--control-height);
+}
+
+textarea {
+  min-height: 110px;
+  padding: var(--space-3);
+  resize: vertical;
+}
+
+/* Keep number fields free of native spinners; the keypad input and
+   min/max validation stay intact. */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* All form fields share one focus indicator (dark border + soft shadow),
+   for mouse and keyboard alike: browsers fire :focus-visible on mouse click
+   for text-entry fields, so a solid outline cannot stay keyboard-only here.
+   Action controls (buttons, links) keep their own :focus-visible outline. */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--ink-strong);
+  background: var(--surface);
+  box-shadow: var(--focus-shadow);
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder);
+  letter-spacing: 0.02em;
+}
+
+.profile-panel input[readonly] {
+  color: var(--muted);
+  background: var(--sand);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+/* ---------- Choice controls ---------- */
+
+input[type="checkbox"] {
+  accent-color: var(--control-accent);
+}
+
+.checkbox-line {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.checkbox-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.checkbox-group legend {
+  padding: 0;
+}
+
+.checkbox-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+/* ---------- Inline field + button rows ---------- */
+
+.field-inline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.field-inline .btn {
+  min-height: var(--control-height);
+  white-space: nowrap;
+}
+
+.field-inline-model .btn {
+  min-width: 132px;
+}
+
+/* ---------- Submit rows ---------- */
+
+.panel-form .form-actions {
+  padding-top: var(--form-actions-top-gap);
+}

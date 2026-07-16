@@ -1,0 +1,15 @@
+# Database
+db.sqlite3
+
+# Bytecode cache
+__pycache__/
+
+# Environments
+.venv/
+
+# IDEs
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
