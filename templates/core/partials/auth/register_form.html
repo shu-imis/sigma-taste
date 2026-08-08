@@ -23,16 +23,10 @@
   <div>
     <label for="{{ form.password1.id_for_label }}">{{ form.password1.label|ui_title }}</label>
     {{ form.password1 }}
-    {% if form.password1.help_text %}
-      <div class="meta" id="{{ form.password1.id_for_label }}_helptext">{{ form.password1.help_text }}</div>
-    {% endif %}
   </div>
   <div>
     <label for="{{ form.password2.id_for_label }}">{{ form.password2.label|ui_title }}</label>
     {{ form.password2 }}
-    {% if form.password2.help_text %}
-      <div class="meta" id="{{ form.password2.id_for_label }}_helptext">{{ form.password2.help_text }}</div>
-    {% endif %}
   </div>
   <div class="full action-row form-actions">
     <button class="btn btn-primary" type="submit">{% ui_label 'Create account' %}</button>

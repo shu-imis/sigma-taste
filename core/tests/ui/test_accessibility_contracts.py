@@ -104,14 +104,25 @@ class AriaDescribedbyPairingTests(TestCase):
         self.assertEqual(create_response.status_code, 200)
         self.assert_no_dangling(create_response)
 
-    def test_register_page_renders_password_help_text_with_paired_ids(self):
+    def test_register_page_shows_password_rules_only_after_failed_submit(self):
         response = self.client.get(reverse('web-register'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'aria-describedby="id_password1_helptext"', html=False)
-        self.assertContains(response, 'id="id_password1_helptext"', html=False)
-        self.assertContains(response, 'aria-describedby="id_password2_helptext"', html=False)
-        self.assertContains(response, 'id="id_password2_helptext"', html=False)
-        # The password rules must be visible content, not only a dangling reference.
+        # Untouched form stays quiet: no preemptive hints under any field.
+        self.assertNotContains(response, 'at least 8 characters')
+        self.assertNotContains(response, '_helptext')
+
+        response = self.client.post(
+            reverse('web-register'),
+            {
+                'username': 'short-pass-member',
+                'email': 'short-pass-member@example.com',
+                'first_name': 'Short',
+                'last_name': 'Pass',
+                'password1': 'short',
+                'password2': 'short',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'at least 8 characters')
 
     def test_register_page_avoids_autofocus(self):

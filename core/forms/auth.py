@@ -39,6 +39,10 @@ class RegisterForm(UserCreationForm):
         self.fields['username'].widget.attrs.setdefault('autocomplete', 'username')
         self.fields['password1'].widget.attrs.setdefault('autocomplete', 'new-password')
         self.fields['password2'].widget.attrs.setdefault('autocomplete', 'new-password')
+        # Password rules surface as validation errors on submit instead of a
+        # preemptive bullet list under an untouched field.
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
 
 
 class LoginForm(AuthenticationForm):
