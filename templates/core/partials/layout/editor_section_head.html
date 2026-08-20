@@ -1,0 +1,6 @@
+{% load ui_copy %}
+<div class="full editor-section-head{% if is_first %} is-first{% endif %}" data-editor-section-head>
+  <span class="editor-kicker">{% ui_label kicker %}</span>
+  <h3>{{ title|ui_title }}</h3>
+  {% if subtitle %}<p class="meta">{{ subtitle }}</p>{% endif %}
+</div>

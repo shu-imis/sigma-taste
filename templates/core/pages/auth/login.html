@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'Sign in' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  {% include 'core/partials/auth/shell.html' with hero_kicker='Welcome back' hero_title='Sign in' hero_description='Return to your profile, saved preferences, and the recipes you want to keep shaping.' panel_title='Sign in' panel_subtitle='Use your account details to pick up where you left off.' auth_panel_class='login' auth_form_partial='core/partials/auth/login_form.html' %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load ui_copy %}
+{% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination top-space-sm" aria-label="{{ aria_label|default:'Pagination' }}">
+    {% if page_obj.has_previous %}
+      <a class="btn btn-ghost" href="?{% if base_querystring %}{{ base_querystring }}&amp;{% endif %}{{ page_param|default:'page' }}={{ page_obj.previous_page_number }}">{% ui_label 'Previous' %}</a>
+    {% else %}
+      <span class="btn btn-ghost is-disabled" aria-disabled="true">{% ui_label 'Previous' %}</span>
+    {% endif %}
+    <span class="pagination-meta">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a class="btn btn-ghost" href="?{% if base_querystring %}{{ base_querystring }}&amp;{% endif %}{{ page_param|default:'page' }}={{ page_obj.next_page_number }}">{% ui_label 'Next' %}</a>
+    {% else %}
+      <span class="btn btn-ghost is-disabled" aria-disabled="true">{% ui_label 'Next' %}</span>
+    {% endif %}
+  </nav>
+{% endif %}

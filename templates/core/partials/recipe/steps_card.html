@@ -1,0 +1,10 @@
+<section class="{{ container_class }}">
+  {% include 'core/partials/layout/section_header.html' with heading_level=heading_level title=title subtitle=subtitle %}
+  <ol class="recipe-info-list step-list">
+    {% for step in steps %}
+      <li class="step-item"><span class="step-index">{{ forloop.counter|stringformat:"02d" }}</span><p class="step-copy">{{ step }}</p></li>
+    {% empty %}
+      <li class="recipe-empty section-empty">{{ empty_text }}</li>
+    {% endfor %}
+  </ol>
+</section>

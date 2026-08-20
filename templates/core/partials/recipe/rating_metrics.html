@@ -1,0 +1,5 @@
+{% load ui_copy %}
+<span class="meta meta-inline{% if container_class %} {{ container_class }}{% endif %}" data-recipe-metrics>
+  <span class="metric-token">{% if rating_label %}{{ rating_label|ui_title }}: {% endif %}{% if rating_value %}{{ rating_value|floatformat:1 }}{% else %}-{% endif %} / 5.0</span>
+  <span class="metric-token">{% ui_title 'reviews' %}: {{ review_count }}</span>
+</span>

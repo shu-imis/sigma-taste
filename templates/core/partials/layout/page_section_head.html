@@ -1,0 +1,12 @@
+{% load ui_copy %}
+<div class="section-head{% if section_head_class %} {{ section_head_class }}{% endif %}" data-section-head>
+  <h2>{{ title|ui_title }}</h2>
+  {% if side_text %}
+    {% if side_href %}
+      <a class="{% if side_class %}{{ side_class }}{% else %}section-side{% endif %}" href="{{ side_href }}">{% if side_prefix %}{% ui_label side_prefix %}{% endif %}{% ui_label side_text %}</a>
+    {% else %}
+      <span class="{% if side_class %}{{ side_class }}{% else %}section-side{% endif %}">{{ side_prefix }}{{ side_text }}</span>
+    {% endif %}
+  {% endif %}
+</div>
+

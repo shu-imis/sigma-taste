@@ -1,0 +1,184 @@
+/* Self-hosted fonts keep the visual system stable across developer machines and browsers. */
+@font-face {
+  font-family: "Sigma Serif";
+  src: url("../fonts/noto_serif_vf.ttf") format("truetype-variations");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF,
+    U+0100-024F,
+    U+1E00-1EFF,
+    U+2000-206F;
+}
+
+@font-face {
+  font-family: "Sigma Serif";
+  src: url("../fonts/noto_serif_sc_vf.ttf") format("truetype-variations");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  unicode-range:
+    U+2E80-2EFF,
+    U+2F00-2FDF,
+    U+3000-303F,
+    U+3040-30FF,
+    U+3100-312F,
+    U+31A0-31BF,
+    U+3400-4DBF,
+    U+4E00-9FFF,
+    U+F900-FAFF,
+    U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Sigma Display";
+  src: url("../fonts/oswald_vf.ttf") format("truetype-variations");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  unicode-range:
+    U+0000-00FF,
+    U+0100-024F,
+    U+1E00-1EFF,
+    U+2000-206F;
+}
+
+@font-face {
+  font-family: "Sigma Display";
+  src: url("../fonts/noto_serif_sc_vf.ttf") format("truetype-variations");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  unicode-range:
+    U+2E80-2EFF,
+    U+2F00-2FDF,
+    U+3000-303F,
+    U+3040-30FF,
+    U+3100-312F,
+    U+31A0-31BF,
+    U+3400-4DBF,
+    U+4E00-9FFF,
+    U+F900-FAFF,
+    U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Sigma Mono";
+  src: url("../fonts/space_mono_regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sigma Mono";
+  src: url("../fonts/space_mono_bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --font-body: "Sigma Serif", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "Iowan Old Style", "Palatino Linotype", "Georgia", "Times New Roman", serif;
+  --font-display: "Sigma Display", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-mono: "Sigma Mono", "Noto Sans SC", "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+
+  --bg: #fefefd;
+  --bg-elevated: #fcfaf6;
+  --surface: #fff;
+  --surface-alt: #fff;
+  --surface-soft: #fffdf9;
+  --sand: #faf8f2;
+  --ink: #1d1d1b;
+  --ink-strong: #111;
+  --ink-inverse: #f6f4ef;
+  --muted: rgba(29, 29, 27, 0.66);
+  --muted-strong: rgba(29, 29, 27, 0.74);
+  --line: rgba(29, 29, 27, 0.18);
+  --line-strong: rgba(29, 29, 27, 0.52);
+  --accent: #7f6651;
+  --accent-ink: #5f4a36;
+  --accent-ink-strong: #5b4530;
+  --accent-ink-soft: #5a4633;
+  --danger: #b4584a;
+  --danger-border: #8f4033;
+  --danger-hover: #a54f42;
+  --ok: #4f7c67;
+  --warn: #a57a3e;
+  --primary-bg: #141414;
+  --primary-border: #121212;
+  --primary-bg-hover: #242424;
+  --focus-ring: #141414;
+  --focus-shadow: 0 0 0 2px rgba(29, 29, 27, 0.12);
+  --placeholder: rgba(29, 29, 27, 0.4);
+  --texture-line-strong: rgba(0, 0, 0, 0.35);
+  --texture-line-soft: rgba(0, 0, 0, 0.2);
+  --hero-orbit-border: rgba(127, 102, 81, 0.28);
+  --control-accent: #151515;
+  --overlay-surface: rgba(254, 254, 253, 0.93);
+  --overlay-surface-strong: rgba(254, 254, 253, 0.98);
+  --shadow-button-hover: 0 4px 0 rgba(29, 29, 27, 0.07);
+  --shadow-nav: 0 6px 18px rgba(29, 29, 27, 0.06);
+  --progress-gradient-mid: #3a3a3a;
+  --progress-gradient: linear-gradient(90deg, var(--ink-strong) 0%, var(--progress-gradient-mid) 60%, var(--accent) 100%);
+  --nav-link-color-idle: rgba(29, 29, 27, 0.62);
+  --nav-link-color-emphasis: var(--ink);
+  --nav-link-border-emphasis: rgba(29, 29, 27, 0.18);
+  --nav-link-bg-emphasis: rgba(29, 29, 27, 0.05);
+  --nav-link-bg-pressed: rgba(29, 29, 27, 0.08);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-micro: 2px;
+  --space-pill-y: 5px;
+  --space-pill-x: 9px;
+  --space-chip-gap: 6px;
+
+  --surface-stack-gap: var(--space-6);
+  --section-gap: var(--space-6);
+  --hero-content-gap: clamp(var(--space-6), 2.4vw, var(--space-8));
+  --section-head-stack-gap: var(--space-3);
+  --header-rule-gap: var(--space-2);
+  --header-rule-padding-bottom: var(--space-2);
+  --form-actions-top-gap: var(--space-2);
+
+  --fs-xs: 10px;
+  --fs-sm: 11px;
+  --fs-md: 15px;
+  --fs-lg: 16px;
+  --fs-xl: 18px;
+
+  --control-height: 43px;
+  --btn-height: var(--control-height);
+  --radius-control: 0;
+
+  --title-panel: clamp(19px, 1.65vw, 23px);
+  --title-subsection: clamp(17px, 1.3vw, 20px);
+  --title-card: clamp(18px, 1.55vw, 22px);
+  --title-brand: clamp(24px, 2.3vw, 30px);
+  --title-hero-default: clamp(36px, 5.8vw, 68px);
+  --title-rank-index: clamp(18px, 1.85vw, 24px);
+  --title-rank-index-tablet: clamp(18px, 4vw, 22px);
+  --title-rank-index-mobile: clamp(18px, 6.2vw, 22px);
+  --card-border-color: rgba(29, 29, 27, 0.44);
+  --card-padding-regular: clamp(var(--space-4), 1.55vw, var(--space-5));
+  --card-gap-regular: var(--space-3);
+  --card-stack-gap: var(--space-5);
+
+  --hero-discovery-title: clamp(44px, 6.8vw, 78px);
+  --hero-studio-title: clamp(40px, 6vw, 68px);
+  --hero-detail-title: clamp(32px, 4.9vw, 58px);
+  --hero-account-title: clamp(30px, 4.5vw, 50px);
+  --hero-discovery-title-mobile: clamp(38px, 11vw, 60px);
+  --hero-studio-title-mobile: clamp(36px, 10.2vw, 56px);
+  --hero-detail-title-mobile: clamp(30px, 9.6vw, 48px);
+  --hero-account-title-mobile: clamp(30px, 9.2vw, 46px);
+}

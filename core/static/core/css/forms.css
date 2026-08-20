@@ -1,0 +1,120 @@
+.search-bar {
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) repeat(3, minmax(120px, 1fr)) auto;
+  gap: var(--space-2);
+  align-items: end;
+}
+
+.search-bar.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 620px;
+}
+
+.search-bar > * {
+  min-width: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+  width: 100%;
+  height: var(--control-height);
+  min-height: var(--control-height);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  padding: 0 var(--space-3);
+  background: var(--surface-alt);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  transition:
+    border-color 0.16s ease-out,
+    background-color 0.16s ease-out,
+    box-shadow 0.16s ease-out;
+}
+
+textarea {
+  width: 100%;
+  min-height: 110px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-control);
+  padding: var(--space-3);
+  background: var(--surface-alt);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  transition:
+    border-color 0.16s ease-out,
+    background-color 0.16s ease-out,
+    box-shadow 0.16s ease-out;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--ink-strong);
+  background: var(--surface);
+  box-shadow: var(--focus-shadow);
+  outline: none;
+}
+
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="number"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder);
+  letter-spacing: 0.02em;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--control-accent);
+}
+
+.field-inline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.field-inline .btn {
+  min-height: var(--control-height);
+  white-space: nowrap;
+}
+
+.field-inline-model .btn {
+  min-width: 132px;
+}

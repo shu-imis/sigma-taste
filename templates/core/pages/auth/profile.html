@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'My profile' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='Personal settings' hero_title='My profile' hero_description='Shape a profile that feels personal, legible, and consistent wherever your name appears.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+  </section>
+
+  <div class="split top-space">
+    {% include 'core/partials/layout/panel_shell.html' with panel_class='profile-panel' panel_title='Profile details' panel_subtitle='Update the details other parts of the site read from.' panel_body_partial='core/partials/profile/workspace_form.html' %}
+
+    <aside class="side-stack">
+      {% for panel in profile_sidebar_panels %}
+        {% include 'core/partials/layout/side_panel.html' with panel=panel %}
+      {% endfor %}
+    </aside>
+  </div>
+{% endblock %}

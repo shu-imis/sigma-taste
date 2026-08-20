@@ -1,0 +1,26 @@
+<section class="{{ container_class }}">
+  {% include 'core/partials/layout/section_header.html' with heading_level=heading_level title=title subtitle=subtitle %}
+  <ul class="recipe-info-list ingredient-list">
+    {% for item in items %}
+      <li class="ingredient-item">
+        <p class="ingredient-name">{{ item.name }}</p>
+        <div class="ingredient-meta">
+          {% if item.quantity and item.unit %}
+            <span>{{ item.quantity }} {{ item.unit }}</span>
+          {% elif item.quantity %}
+            <span>{{ item.quantity }}</span>
+          {% elif item.unit %}
+            <span>{{ item.unit }}</span>
+          {% else %}
+            <span>As needed</span>
+          {% endif %}
+          {% if item.alternative %}
+            <span>Alternative: {{ item.alternative }}</span>
+          {% endif %}
+        </div>
+      </li>
+    {% empty %}
+      <li class="recipe-empty section-empty">{{ empty_text }}</li>
+    {% endfor %}
+  </ul>
+</section>

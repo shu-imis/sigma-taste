@@ -1,0 +1,11 @@
+{% load ui_copy %}
+<div class="panel-header">
+  {% if heading_level == '3' %}
+    <h3 class="tight-title">{{ title|ui_title }}</h3>
+  {% else %}
+    <h2 class="tight-title">{{ title|ui_title }}</h2>
+  {% endif %}
+  {% if subtitle %}
+    <p class="meta">{{ subtitle }}</p>
+  {% endif %}
+</div>

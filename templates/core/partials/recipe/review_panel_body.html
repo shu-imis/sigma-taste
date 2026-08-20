@@ -1,0 +1,20 @@
+{% load ui_copy %}
+{% if request.user.is_authenticated %}
+  <form method="post" action="{% url 'web-recipe-review' recipe.id %}" class="form-grid panel-form">
+    {% csrf_token %}
+    <div>
+      <label for="{{ review_form.rating.id_for_label }}">{% ui_title 'rating (1-5)' %}</label>
+      {{ review_form.rating }}
+    </div>
+    <div class="full">
+      <label for="{{ review_form.content.id_for_label }}">{{ review_form.content.label|ui_title }}</label>
+      {{ review_form.content }}
+    </div>
+    <div class="full action-row form-actions">
+      <button class="btn btn-primary" type="submit">{% ui_label 'Share feedback' %}</button>
+      <label class="checkbox-line">{{ review_form.is_anonymous }} {% ui_title 'post anonymously' %}</label>
+    </div>
+  </form>
+{% else %}
+  {% include 'core/partials/feedback/block.html' with surface='empty' feedback_kind='empty' role='status' live='polite' text='Sign in to leave a note about how this recipe worked in your kitchen.' %}
+{% endif %}

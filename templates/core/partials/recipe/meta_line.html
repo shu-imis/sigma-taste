@@ -1,0 +1,32 @@
+{% load ui_copy %}
+<div class="meta recipe-meta-line{% if container_class %} {{ container_class }}{% endif %}{% if separator_text == '·' %} meta-tokens-dotted{% endif %}" data-recipe-meta>
+  {% if leading_text %}
+    <span class="meta-token">
+      <span>{{ leading_text|ui_title }}</span>
+    </span>
+  {% endif %}
+  {% if model_name %}
+    <span class="meta-token{% if separator_text and leading_text %} has-divider{% endif %}">
+      {% if separator_text and leading_text %}<span class="meta-divider" aria-hidden="true"></span>{% endif %}
+      <span>{% ui_title 'model' %}: {{ model_name }}</span>
+    </span>
+  {% endif %}
+  {% if cuisine %}
+    <span class="meta-token{% if separator_text and leading_text or separator_text and model_name %} has-divider{% endif %}">
+      {% if separator_text and leading_text or separator_text and model_name %}<span class="meta-divider" aria-hidden="true"></span>{% endif %}
+      <span>{{ cuisine|ui_title }}</span>
+    </span>
+  {% endif %}
+  {% if cooking_time %}
+    <span class="meta-token{% if separator_text and leading_text or separator_text and model_name or separator_text and cuisine %} has-divider{% endif %}">
+      {% if separator_text and leading_text or separator_text and model_name or separator_text and cuisine %}<span class="meta-divider" aria-hidden="true"></span>{% endif %}
+      <span>{{ cooking_time }} min</span>
+    </span>
+  {% endif %}
+  {% if difficulty %}
+    <span class="meta-token{% if separator_text and leading_text or separator_text and model_name or separator_text and cuisine or separator_text and cooking_time %} has-divider{% endif %}">
+      {% if separator_text and leading_text or separator_text and model_name or separator_text and cuisine or separator_text and cooking_time %}<span class="meta-divider" aria-hidden="true"></span>{% endif %}
+      <span>{{ difficulty|ui_title }}</span>
+    </span>
+  {% endif %}
+</div>

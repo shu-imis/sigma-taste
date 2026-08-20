@@ -1,0 +1,64 @@
+{% load ui_copy %}
+<section class="panel side-panel side-panel-{{ panel.kind }}" data-panel-kind="{{ panel.kind }}">
+  {% include 'core/partials/layout/section_header.html' with heading_level=panel.heading_level|default:'2' title=panel.title subtitle=panel.subtitle %}
+
+  <div class="panel-body side-panel-body">
+    {% if panel.kind == 'link-list' %}
+      <ul class="list list-divided side-panel-list">
+        {% for entry in panel.entries %}
+          <li>
+            <a class="list-link-title" href="{{ entry.href }}">{{ entry.title|ui_title }}</a>
+            {% if entry.meta %}<div class="meta">{{ entry.meta }}</div>{% endif %}
+          </li>
+        {% empty %}
+          <li class="meta">{{ panel.empty_text }}</li>
+        {% endfor %}
+      </ul>
+    {% elif panel.kind == 'action-list' %}
+      <div class="grid quick-links-grid side-panel-actions">
+        {% for entry in panel.entries %}
+          <a class="btn {% if entry.tone == 'primary' %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ entry.href }}">{% ui_label entry.label %}</a>
+        {% endfor %}
+      </div>
+    {% elif panel.kind == 'info-list' %}
+      <ul class="info-list side-panel-list">
+        {% for entry in panel.entries %}
+          <li>
+            <strong>{{ entry.title|ui_title }}</strong>
+            <span class="meta">{{ entry.body }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% elif panel.kind == 'summary-stack' %}
+      <div class="profile-summary side-panel-summary">
+        {% for section in panel.sections %}
+          <div class="profile-summary-block side-panel-summary-block">
+            {% if section.kicker %}<span class="editor-kicker">{% ui_label section.kicker %}</span>{% endif %}
+            {% if section.title %}<div class="profile-summary-name{% if section.title_is_cjk %} is-cjk{% elif section.title_is_cjk_mixed %} is-cjk-mixed{% endif %}">{{ section.title }}</div>{% endif %}
+            {% if section.meta %}<div class="meta">{{ section.meta }}</div>{% endif %}
+            {% if section.body %}<p class="helper">{{ section.body }}</p>{% endif %}
+
+            {% if section.badges %}
+              <div class="profile-badges">
+                {% for badge in section.badges %}<span class="badge">{% ui_label badge %}</span>{% endfor %}
+              </div>
+            {% elif section.empty_message %}
+              <span class="meta">{{ section.empty_message }}</span>
+            {% endif %}
+
+            {% if section.rows %}
+              <div class="side-panel-summary-rows">
+                {% for row in section.rows %}
+                  <div class="side-panel-summary-note">
+                    <span class="side-panel-summary-label">{{ row.label|ui_title }}</span>
+                    <span class="helper">{{ row.value }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

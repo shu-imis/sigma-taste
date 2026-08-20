@@ -1,0 +1,15 @@
+# 数据库
+db.sqlite3
+
+# 字节码缓存
+__pycache__/
+
+# 虚拟环境
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store

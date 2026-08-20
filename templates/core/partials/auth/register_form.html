@@ -1,0 +1,35 @@
+{% load ui_copy %}
+<form method="post" class="form-grid panel-form auth-form">
+  {% csrf_token %}
+  {% if form.errors %}
+    {% include 'core/partials/feedback/block.html' with full=1 tone='error' feedback_kind='form-error' role='alert' live='assertive' content_partial='core/partials/feedback/form_errors.html' %}
+  {% endif %}
+  <div>
+    <label for="{{ form.username.id_for_label }}">{{ form.username.label|ui_title }}</label>
+    {{ form.username }}
+  </div>
+  <div>
+    <label for="{{ form.email.id_for_label }}">{{ form.email.label|ui_title }}</label>
+    {{ form.email }}
+  </div>
+  <div>
+    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label|ui_title }}</label>
+    {{ form.first_name }}
+  </div>
+  <div>
+    <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label|ui_title }}</label>
+    {{ form.last_name }}
+  </div>
+  <div>
+    <label for="{{ form.password1.id_for_label }}">{{ form.password1.label|ui_title }}</label>
+    {{ form.password1 }}
+  </div>
+  <div>
+    <label for="{{ form.password2.id_for_label }}">{{ form.password2.label|ui_title }}</label>
+    {{ form.password2 }}
+  </div>
+  <div class="full action-row form-actions">
+    <button class="btn btn-primary" type="submit">{% ui_label 'Join Sigma Taste' %}</button>
+    <a class="btn btn-ghost" href="{% url 'web-login' %}">{% ui_label 'Sign in' %}</a>
+  </div>
+</form>

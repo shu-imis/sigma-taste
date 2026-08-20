@@ -1,0 +1,108 @@
+.hero {
+  margin-top: var(--section-gap);
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, var(--surface-soft) 0%, var(--sand) 100%);
+  padding: clamp(26px, 3.4vw, 42px);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: clamp(12px, 1.8vw, 18px);
+  align-content: start;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 192px;
+  height: 192px;
+  right: -1px;
+  top: -1px;
+  background:
+    linear-gradient(var(--hero-orbit-border), var(--hero-orbit-border)) top right / 100% 1px no-repeat,
+    linear-gradient(var(--hero-orbit-border), var(--hero-orbit-border)) top right / 1px 100% no-repeat,
+    linear-gradient(var(--hero-orbit-border), var(--hero-orbit-border)) calc(100% - 28px) 28px / 1px calc(100% - 28px) no-repeat,
+    linear-gradient(var(--hero-orbit-border), var(--hero-orbit-border)) 28px calc(100% - 28px) / calc(100% - 28px) 1px no-repeat;
+  opacity: 0.82;
+}
+
+.hero-kicker {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--title-hero-default);
+  line-height: 0.98;
+  letter-spacing: 0.08px;
+}
+
+.hero p {
+  margin: 0;
+  max-width: 48ch;
+  font-size: var(--fs-md);
+  color: var(--muted-strong);
+  line-height: 1.68;
+}
+
+.hero .meta {
+  font-size: 12px;
+}
+
+.hero-support {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.meta-tokens-dotted .meta-token-note {
+  color: var(--muted);
+}
+
+.hero-meta-note {
+  white-space: nowrap;
+}
+
+.hero-group-discovery h1 {
+  font-size: var(--hero-discovery-title);
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hero .hero-stats {
+  margin-top: 0;
+}
+
+.hero .search-bar,
+.hero .search-bar.compact {
+  margin-top: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.hero .search-bar.compact {
+  max-width: 620px;
+  gap: var(--space-2);
+}
+
+.hero-group-detail h1 {
+  font-size: var(--hero-detail-title);
+}
+
+.hero-group-studio h1 {
+  font-size: var(--hero-studio-title);
+}
+
+.hero-group-account h1 {
+  font-size: var(--hero-account-title);
+}

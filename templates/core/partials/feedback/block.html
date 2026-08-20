@@ -1,0 +1,13 @@
+<div
+  class="{% if full %}full {% endif %}{% if surface == 'empty' %}empty section-empty{% else %}msg{% if tone %} {{ tone }}{% endif %}{% endif %}"
+  {% if role %}role="{{ role }}"{% endif %}
+  {% if live %}aria-live="{{ live }}"{% endif %}
+  data-feedback-block
+  {% if feedback_kind %}data-feedback-kind="{{ feedback_kind }}"{% endif %}
+>
+  {% if content_partial %}
+    {% include content_partial %}
+  {% else %}
+    {{ text }}
+  {% endif %}
+</div>

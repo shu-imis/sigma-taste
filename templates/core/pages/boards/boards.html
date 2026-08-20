@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+{% load number_format ui_copy %}
+{% block title %}{% ui_label 'Boards' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-studio">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='What the community is noticing' hero_title='Boards' hero_description='See which recipes people return to, which ones invite discussion, and which AI drafts deserve a closer look.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+    <form class="search-bar compact" method="get">
+      <label class="visually-hidden" for="boards-filter-type">Board type</label>
+      <select id="boards-filter-type" name="type">
+        <option value="red" {% if rank_type == 'red' %}selected{% endif %}>{% ui_title 'recipes people revisit' %}</option>
+        <option value="black" {% if rank_type == 'black' %}selected{% endif %}>{% ui_title 'recipes under discussion' %}</option>
+        <option value="ai" {% if rank_type == 'ai' %}selected{% endif %}>{% ui_title 'ai drafts to watch' %}</option>
+      </select>
+      <label class="visually-hidden" for="boards-filter-window">Time window</label>
+      <select id="boards-filter-window" name="window">
+        <option value="day" {% if window == 'day' %}selected{% endif %}>{% ui_title 'last 24 hours' %}</option>
+        <option value="week" {% if window == 'week' %}selected{% endif %}>{% ui_title 'last 7 days' %}</option>
+        <option value="month" {% if window == 'month' %}selected{% endif %}>{% ui_title 'last 30 days' %}</option>
+      </select>
+      <button class="btn btn-primary" type="submit">{% ui_label 'Refresh board' %}</button>
+    </form>
+  </section>
+
+  <section class="boards-layout">
+    {% with ranking_title=ranking.get_type_display|add:' · '|add:ranking.get_window_display ranking_updated=ranking.generated_at|date:'Y-m-d H:i' %}
+      {% include 'core/partials/layout/page_section_head.html' with title=ranking_title section_head_class='with-side hero-anchor' side_text=ranking_updated side_prefix='Updated ' side_class='meta section-side' %}
+    {% endwith %}
+    {% if ranking.data %}
+      <div class="grid cards cards-board" role="list" aria-label="Community board entries">
+        {% for item in ranking.data %}
+          <div class="card card-board" role="listitem">
+            <div class="board-rank">#{{ forloop.counter }}</div>
+            <div class="board-main">
+              <h3 class="board-title">
+                <a class="card-board-title-link" href="{% url 'web-recipe-detail' item.recipe_id %}">{{ item.title|ui_title }}</a>
+              </h3>
+              <div class="card-meta-stack board-metrics">
+                <div class="board-score">
+                  <span class="board-score-label">{% ui_label 'Board score' %}</span>
+                  <strong class="board-score-value">{{ item.score|floatformat:2 }}</strong>
+                </div>
+                {% include 'core/partials/recipe/rating_metrics.html' with container_class='board-rating' rating_label='Rating' rating_value=item.avg_rating review_count=item.review_count|compact_number %}
+              </div>
+            </div>
+            <div class="board-action">
+              <a class="btn btn-ghost board-cta" href="{% url 'web-recipe-detail' item.recipe_id %}">{% ui_label 'View recipe' %}</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      {% include 'core/partials/feedback/empty_state.html' with empty_state=boards_empty_state %}
+    {% endif %}
+  </section>
+{% endblock %}

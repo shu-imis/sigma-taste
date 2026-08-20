@@ -1,0 +1,5 @@
+{% load ui_copy %}
+<div class="panel-header">
+  <h2 class="tight-title">{{ generated_recipe.title|ui_title }}</h2>
+  {% include 'core/partials/recipe/meta_line.html' with container_class='meta generated-recipe-meta' leading_text='AI draft' model_name=generated_model cuisine=generated_recipe.cuisine cooking_time=generated_recipe.cooking_time difficulty=generated_recipe.difficulty separator_text='·' %}
+</div>

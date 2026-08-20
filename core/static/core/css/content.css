@@ -1,0 +1,370 @@
+ol {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+li {
+  color: inherit;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+.helper {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+.form-error-list {
+  margin: 0;
+  padding-left: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.form-error-list li {
+  color: inherit;
+  line-height: 1.5;
+}
+
+.top-space {
+  margin-top: var(--space-7);
+}
+
+.top-space-sm {
+  margin-top: var(--space-3);
+}
+
+.tight-title {
+  margin: 0;
+  font-family: var(--font-display);
+  text-transform: none;
+  letter-spacing: 0.12px;
+  text-wrap: balance;
+}
+
+.panel-header {
+  display: grid;
+  gap: 6px;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-header .tight-title,
+.panel-header p,
+.panel-header .meta {
+  margin: 0;
+}
+
+.panel-body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.panel-body > * {
+  min-width: 0;
+}
+
+.panel-body .list,
+.panel-body ol {
+  margin: 0;
+}
+
+.side-panel {
+  gap: var(--space-3);
+}
+
+.side-panel-link-list .side-panel-body,
+.side-panel-info-list .side-panel-body {
+  gap: 0;
+}
+
+.side-panel-list,
+.side-panel-actions,
+.side-panel-summary {
+  margin: 0;
+}
+
+.panel-form {
+  margin: 0;
+}
+
+.panel-form.form-grid {
+  row-gap: var(--space-4);
+}
+
+.panel-form .action-row {
+  padding-top: 0;
+}
+
+.panel-form .form-actions {
+  padding-top: var(--form-actions-top-gap);
+}
+
+.progress-form .ai-generate-primary-action {
+  order: 60;
+}
+
+.progress-form .ai-model-availability-row {
+  order: 62;
+}
+
+.quick-links-grid {
+  gap: var(--space-4);
+}
+
+.profile-panel {
+  gap: var(--surface-stack-gap);
+}
+
+.profile-panel input[readonly] {
+  color: var(--muted);
+  background: var(--sand);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.profile-summary {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.profile-summary-block {
+  display: grid;
+  gap: var(--space-2);
+  padding: clamp(14px, 1.45vw, 18px);
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.profile-summary-block .helper,
+.profile-summary-block .meta {
+  margin: 0;
+}
+
+.profile-summary-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 36px);
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.profile-summary-name.is-cjk {
+  font-family: var(--font-body);
+  font-size: clamp(24px, 2.7vw, 31px);
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.profile-summary-name.is-cjk-mixed {
+  font-family: var(--font-body);
+  font-size: clamp(25px, 2.9vw, 33px);
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.section-empty {
+  display: block;
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--muted);
+  line-height: 1.62;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-wrap: pretty;
+}
+
+.section-empty a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.recipe-info-list .section-empty {
+  padding: var(--space-3);
+}
+
+.list.list-divided li.section-empty,
+.info-list li.section-empty {
+  border-bottom: 0;
+}
+
+.side-panel-summary-rows {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.side-panel-summary-note {
+  display: grid;
+  gap: 2px;
+}
+
+.side-panel-summary-note .helper {
+  margin: 0;
+}
+
+.side-panel-summary-label {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+}
+
+.generated-recipe-panel-body > p {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.generated-recipe-detail-stack {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.generated-recipe-detail-stack > * {
+  min-width: 0;
+}
+
+h3.tight-title,
+.panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--title-subsection);
+  line-height: 1.14;
+  letter-spacing: 0.12px;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.action-row > * {
+  min-width: 0;
+}
+
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.info-list li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.info-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.info-list strong {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.info-list .meta {
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+.recipe-admin-actions {
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.recipe-admin-actions .inline-form {
+  margin-top: 0;
+}
+
+.recipe-admin-actions .btn {
+  min-width: 132px;
+}
+
+.recipe-admin-actions .recipe-admin-remove {
+  margin-left: auto;
+}
+
+.checkbox-line {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.inline-form {
+  margin-top: var(--space-3);
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.inline-form input[type="number"] {
+  height: var(--control-height);
+  width: 86px;
+}
+
+.inline-form.inline-form-flat {
+  margin-top: 0;
+}
+
+.review-reaction-form .btn {
+  min-height: 36px;
+  min-width: 42px;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.review-reaction-form .btn.is-active,
+.review-reaction-form .btn.is-active:hover,
+.review-reaction-form .btn.is-active:focus-visible {
+  border-color: var(--ink-strong);
+  background: var(--ink-strong);
+  color: var(--ink-inverse);
+}

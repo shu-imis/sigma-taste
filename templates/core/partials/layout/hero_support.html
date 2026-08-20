@@ -1,0 +1,26 @@
+{% load ui_copy %}
+{% if hero_meta_tokens or hero_meta_note or hero_badges %}
+  <div class="hero-support" data-hero-support>
+    {% if hero_meta_tokens %}
+      <div class="meta hero-meta meta-tokens-dotted">
+        {% for token in hero_meta_tokens %}
+          <span class="meta-token{% if not forloop.first %} has-divider{% endif %}">
+            {% if not forloop.first %}<span class="meta-divider" aria-hidden="true"></span>{% endif %}
+            <span>{{ token }}</span>
+          </span>
+        {% endfor %}
+        {% if hero_meta_note %}
+          <span class="meta-token meta-token-note has-divider">
+            <span class="meta-divider" aria-hidden="true"></span>
+            <span class="hero-meta-note">{{ hero_meta_note }}</span>
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if hero_badges %}
+      <div class="hero-stats">
+        {% for badge in hero_badges %}<span class="badge">{% ui_label badge %}</span>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

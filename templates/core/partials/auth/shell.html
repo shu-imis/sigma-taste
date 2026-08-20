@@ -1,0 +1,8 @@
+<section class="hero hero-group-account">
+  {% include 'core/partials/layout/hero_intro.html' with hero_kicker=hero_kicker hero_title=hero_title hero_description=hero_description %}
+  {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+</section>
+
+{% with auth_panel_class=auth_panel_class|default:'' %}
+  {% include 'core/partials/layout/panel_shell.html' with panel_class='narrow-panel '|add:auth_panel_class panel_title=panel_title panel_subtitle=panel_subtitle panel_body_partial=auth_form_partial panel_extra_attrs='data-auth-shell' %}
+{% endwith %}

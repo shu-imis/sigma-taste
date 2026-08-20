@@ -1,0 +1,110 @@
+{% load static ui_copy %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fefefd">
+  <title>{% block title %}{% ui_label 'Discover' %} · {% ui_label 'Sigma Taste' %}{% endblock %}</title>
+  <style nonce="{{ request.csp_style_nonce }}">
+    /* Critical pre-stylesheet paint: duplicates the html/body reset from layout.css
+       and hard-codes the token values below so first paint never flashes unstyled. */
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    html {
+      background: #fefefd; /* mirrors --bg in tokens.css; keep in sync */
+      color-scheme: light;
+    }
+
+    body {
+      /* #fefefd mirrors --bg, #fcfaf6 mirrors --bg-elevated in tokens.css; keep in sync */
+      background: linear-gradient(180deg, #fefefd 0%, #fcfaf6 100%);
+      color: #1d1d1b; /* mirrors --ink in tokens.css; keep in sync */
+    }
+  </style>
+
+  <link rel="stylesheet" href="{% static 'core/css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/layout.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/controls.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/hero.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/forms.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/cards.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/surfaces.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/recipe.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/content.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/responsive.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/utilities.css' %}">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">{% ui_label 'Skip to main content' %}</a>
+  <div class="page-wrap">
+    <nav class="nav-shell">
+      <div class="brand-box">
+        <a href="{% url 'web-home' %}" class="brand">
+          <span class="brand-main">{% ui_label 'Sigma Taste' %}</span>
+          <span class="brand-sub">{% ui_label 'Recipes · notes · ideas' %}</span>
+        </a>
+      </div>
+      <button
+        class="btn btn-ghost nav-toggle"
+        type="button"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+        aria-controls="primary-nav account-nav"
+      >
+        {% ui_label 'Menu' %}
+      </button>
+      <div class="user-actions{% if request.user.is_authenticated %} user-actions-auth{% endif %}" id="account-nav">
+        {% if request.user.is_authenticated %}
+          {% include 'core/partials/layout/avatar_badge.html' with avatar_class='avatar-initial' avatar_source=request.user.username aria_label='User initial avatar' %}
+          <a class="btn btn-ghost" href="{% url 'web-profile' %}">{% ui_label 'My profile' %}</a>
+          <form method="post" action="{% url 'web-logout' %}" class="nav-action-form">
+            {% csrf_token %}
+            <button class="btn btn-ghost" type="submit">{% ui_label 'Sign out' %}</button>
+          </form>
+        {% else %}
+          <a class="btn btn-ghost" href="{% url 'web-login' %}">{% ui_label 'Sign in' %}</a>
+          <a class="btn btn-primary" href="{% url 'web-register' %}">{% ui_label 'Join Sigma Taste' %}</a>
+        {% endif %}
+      </div>
+      {% with current=request.resolver_match.url_name %}
+        <div class="nav-links" id="primary-nav" aria-label="Primary navigation">
+          <a href="{% url 'web-home' %}"{% if current == 'web-home' %} class="is-active" aria-current="page"{% endif %}>{% ui_label 'Discover' %}</a>
+          <a href="{% url 'web-recipe-create' %}"{% if current == 'web-recipe-create' %} class="is-active" aria-current="page"{% endif %}>{% ui_label 'Recipe studio' %}</a>
+          <a href="{% url 'web-ai-generate' %}"{% if current == 'web-ai-generate' %} class="is-active" aria-current="page"{% endif %}>{% ui_label 'AI recipe studio' %}</a>
+          <a href="{% url 'web-boards' %}"{% if current == 'web-boards' %} class="is-active" aria-current="page"{% endif %}>{% ui_label 'Boards' %}</a>
+        </div>
+      {% endwith %}
+    </nav>
+
+    {% if messages %}
+      <div class="messages" aria-label="Notifications">
+        {% for message in messages %}
+          {% if 'error' in message.tags or 'warning' in message.tags %}
+            {% include 'core/partials/feedback/block.html' with tone=message.tags feedback_kind='flash' role='alert' live='assertive' text=message %}
+          {% else %}
+            {% include 'core/partials/feedback/block.html' with tone=message.tags feedback_kind='flash' role='status' live='polite' text=message %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <main id="main-content" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+
+    <div class="footer">{% ui_label 'Sigma Taste' %} · {% ui_label 'Everyday recipes, thoughtful notes, and kitchen ideas' %}</div>
+  </div>
+
+  <script src="{% static 'core/js/page_runtime.js' %}" defer data-global-script></script>
+  <script src="{% static 'core/js/nav_shell.js' %}" defer data-global-script></script>
+  <script src="{% static 'core/js/soft_nav.js' %}" defer data-global-script></script>
+  {% block extra_script %}{% endblock %}
+</body>
+</html>

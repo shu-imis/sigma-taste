@@ -1,0 +1,59 @@
+{% load ui_copy %}
+<form
+  method="post"
+  class="form-grid panel-form progress-form"
+  data-progress-form
+  data-progress-title="Publishing your recipe"
+  data-progress-stage="Preparing your recipe for the community..."
+  data-progress-button="Publishing..."
+>
+  {% csrf_token %}
+  {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+  {% endfor %}
+  {% if form.errors %}
+    {% include 'core/partials/feedback/block.html' with full=1 tone='error' feedback_kind='form-error' role='alert' live='assertive' content_partial='core/partials/feedback/form_errors.html' %}
+  {% endif %}
+
+  {% include 'core/partials/layout/editor_section_head.html' with is_first=True kicker='Core identity' title='Name the dish and set its context' subtitle='A clear title, cuisine, and cooking frame help someone trust the recipe from the start.' %}
+  <div>
+    <label for="{{ form.title.id_for_label }}">{{ form.title.label|ui_title }}</label>
+    {{ form.title }}
+  </div>
+  <div>
+    <label for="{{ form.cuisine.id_for_label }}">{{ form.cuisine.label|ui_title }}</label>
+    {{ form.cuisine }}
+  </div>
+  <div>
+    <label for="{{ form.flavor.id_for_label }}">{{ form.flavor.label|ui_title }}</label>
+    {{ form.flavor }}
+  </div>
+  <div>
+    <label for="{{ form.cooking_time.id_for_label }}">{% ui_title 'cooking time (min)' %}</label>
+    {{ form.cooking_time }}
+  </div>
+  <div>
+    <label for="{{ form.difficulty.id_for_label }}">{{ form.difficulty.label|ui_title }}</label>
+    {{ form.difficulty }}
+  </div>
+
+  {% include 'core/partials/layout/editor_section_head.html' with kicker='Story and flow' title='Give the recipe a clear point of view' subtitle='Description and method should read like a real cooking process, not a rough note.' %}
+  <div class="full">
+    <label for="{{ form.description.id_for_label }}">{{ form.description.label|ui_title }}</label>
+    {{ form.description }}
+  </div>
+  <div class="full">
+    <label for="{{ form.steps_text.id_for_label }}">{% ui_title 'steps' %}</label>
+    {{ form.steps_text }}
+  </div>
+
+  {% include 'core/partials/layout/editor_section_head.html' with kicker='Ingredient lines' title='List what the cook needs without guesswork' subtitle='Complete ingredient lines make the recipe easier for another person to use right away.' %}
+  <div class="full">
+    <label for="{{ form.ingredients_text.id_for_label }}">{% ui_title 'ingredients' %}</label>
+    {{ form.ingredients_text }}
+  </div>
+  <div class="full action-row form-actions">
+    <button class="btn btn-primary" type="submit" data-progress-submit>{% ui_label 'Publish to Sigma Taste' %}</button>
+  </div>
+  {% include 'core/partials/ai/progress.html' with progress_title='Publishing your recipe' progress_stage='Preparing your recipe for the community...' progress_aria_label='Recipe publishing progress' %}
+</form>

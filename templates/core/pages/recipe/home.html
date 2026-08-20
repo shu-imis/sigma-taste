@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+{% load number_format ui_copy %}
+{% block title %}{% ui_label 'Discover' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-discovery">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='Cook with confidence' hero_title='Discover' hero_description='Discover reliable home recipes, thoughtful notes, and practical ideas shaped by real kitchens.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_badges=hero_badges %}
+    <form class="search-bar" method="get">
+      <div class="wide">
+        <label class="visually-hidden" for="home-filter-q">Search dishes, ingredients, or techniques</label>
+        <input id="home-filter-q" type="text" name="q" value="{{ q }}" placeholder="Search dishes, ingredients, or techniques">
+      </div>
+      <label class="visually-hidden" for="home-filter-cuisine">Cuisine</label>
+      <input id="home-filter-cuisine" type="text" name="cuisine" value="{{ cuisine }}" placeholder="Cuisine">
+      <label class="visually-hidden" for="home-filter-flavor">Flavor</label>
+      <input id="home-filter-flavor" type="text" name="flavor" value="{{ flavor }}" placeholder="Flavor">
+      <label class="visually-hidden" for="home-filter-sort">Sort recipes</label>
+      <select id="home-filter-sort" name="sort">
+        <option value="latest" {% if sort == 'latest' %}selected{% endif %}>{% ui_title 'latest' %}</option>
+        <option value="rating" {% if sort == 'rating' %}selected{% endif %}>{% ui_title 'top rated' %}</option>
+        <option value="hot" {% if sort == 'hot' %}selected{% endif %}>{% ui_title 'most viewed' %}</option>
+      </select>
+      <button class="btn btn-primary" type="submit">{% ui_label 'Refine search' %}</button>
+    </form>
+  </section>
+
+  <div class="split home-layout">
+    <section class="home-main">
+      {% url 'web-recipe-create' as recipe_create_url %}
+      {% include 'core/partials/layout/page_section_head.html' with title='Community picks' section_head_class='home-head with-side hero-anchor' side_text='Start a recipe draft' side_href=recipe_create_url side_class='btn btn-ghost section-side' %}
+      {% if recipes %}
+        <div class="grid cards cards-community">
+          {% for recipe in recipes %}
+            <article class="card card-community">
+              <header class="card-head card-community-head">
+                <h3 class="card-community-title">
+                  <a class="card-community-title-link" href="{% url 'web-recipe-detail' recipe.id %}">{{ recipe.title|ui_title }}</a>
+                </h3>
+                {% include 'core/partials/recipe/meta_line.html' with container_class='meta card-community-meta' cuisine=recipe.cuisine cooking_time=recipe.cooking_time difficulty=recipe.get_difficulty_display %}
+              </header>
+              <div class="card-body card-community-body">
+                <p class="card-copy card-community-copy">{{ recipe.description|default:'A shared recipe from the Sigma Taste kitchen.' }}</p>
+                {% if recipe.home_card_tags %}
+                  <div class="card-tags card-community-tags" data-card-tag-overflow data-overflow-title-text="{{ recipe.home_card_tags|join:', '|ui_label }}">
+                    {% for tag in recipe.home_card_tags %}<span class="badge card-tag-item">{% ui_label tag %}</span>{% endfor %}
+                    <span class="badge badge-more" hidden>+0</span>
+                  </div>
+                {% endif %}
+              </div>
+              <footer class="card-foot card-community-foot">
+                {% include 'core/partials/recipe/rating_metrics.html' with container_class='card-community-rating' rating_value=recipe.avg_rating review_count=recipe.review_count|compact_number %}
+                <a class="btn btn-ghost card-community-cta" href="{% url 'web-recipe-detail' recipe.id %}">{% ui_label 'View recipe' %}</a>
+              </footer>
+            </article>
+          {% endfor %}
+        </div>
+        {% include 'core/partials/layout/pagination.html' with page_obj=recipe_page base_querystring=feed_querystring page_param='page' aria_label='Recipe list pages' %}
+      {% else %}
+        {% include 'core/partials/feedback/empty_state.html' with empty_state=home_empty_state %}
+      {% endif %}
+    </section>
+
+    <aside class="home-side">
+      {% for panel in home_sidebar_panels %}
+        {% include 'core/partials/layout/side_panel.html' with panel=panel %}
+      {% endfor %}
+    </aside>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  {% include 'core/partials/scripts/card_tag_overflow.html' %}
+{% endblock %}

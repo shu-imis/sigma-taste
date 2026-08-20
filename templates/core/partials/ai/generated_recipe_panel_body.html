@@ -1,0 +1,24 @@
+{% load ui_copy %}
+<p>{{ generated_recipe.description }}</p>
+<div class="action-row action-row-wrap">
+  <form method="post" class="inline-form inline-form-flat">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="continue_editing">
+    <input type="hidden" name="draft_token" value="{{ publish_token }}">
+    <input type="hidden" name="draft_id" value="{{ publish_draft_id }}">
+    <button class="btn btn-primary" type="submit">{% ui_label 'Continue in Recipe Studio' %}</button>
+  </form>
+  <form method="post" class="inline-form inline-form-flat">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="publish_generated">
+    <input type="hidden" name="draft_token" value="{{ publish_token }}">
+    <input type="hidden" name="draft_id" value="{{ publish_draft_id }}">
+    <button class="btn btn-ghost" type="submit">{% ui_label 'Save to my recipe box' %}</button>
+  </form>
+  <span class="meta">Move the draft into Recipe Studio if you want to tune the title, ingredient lines, and step flow before publishing.</span>
+</div>
+
+<section class="top-space-sm generated-recipe-detail-stack">
+  {% include 'core/partials/recipe/ingredients_card.html' with container_class='panel recipe-info-card recipe-info-card-ingredients' heading_level='3' title='Ingredients' subtitle='Proposed ingredient set' items=generated_recipe.ingredients empty_text='Ingredients will appear here once they are generated.' %}
+  {% include 'core/partials/recipe/steps_card.html' with container_class='panel recipe-info-card recipe-info-card-steps' heading_level='3' title='Steps' subtitle='Suggested cooking flow' steps=generated_recipe.steps empty_text='Steps will appear here once they are generated.' %}
+</section>

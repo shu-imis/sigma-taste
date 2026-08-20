@@ -1,0 +1,60 @@
+{% load ui_copy %}
+<form
+  method="post"
+  class="form-grid panel-form progress-form"
+  data-progress-form
+  data-progress-title="Creating your recipe"
+  data-progress-stage="Thinking through your ingredients with care..."
+  data-progress-button="Creating..."
+>
+  {% csrf_token %}
+  {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+  {% endfor %}
+  {% if form.errors %}
+    {% include 'core/partials/feedback/block.html' with full=1 tone='error' feedback_kind='form-error' role='alert' live='assertive' content_partial='core/partials/feedback/form_errors.html' %}
+  {% endif %}
+  <div class="full action-row form-actions ai-generate-primary-action">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      data-progress-submit
+      {% if not available_models and not form.model.value %}disabled aria-disabled="true"{% endif %}
+    >{% ui_label 'Create draft' %}</button>
+  </div>
+
+  {% include 'core/partials/layout/editor_section_head.html' with is_first=True kicker='Draft setup' title='Tell the system what to work with' subtitle='The clearer the ingredients, timing, and direction, the more grounded the first draft will feel.' %}
+  <div>
+    <label for="{{ form.model.id_for_label }}">{{ form.model.label|ui_title }}</label>
+    <div class="field-inline field-inline-model">
+      {{ form.model }}
+      <button class="btn btn-ghost" type="submit" name="action" value="set_model" formnovalidate{% if not available_models %} disabled aria-disabled="true"{% endif %}>{% ui_label 'Confirm' %}</button>
+    </div>
+  </div>
+  <div class="full">
+    <label for="{{ form.available_ingredients.id_for_label }}">{{ form.available_ingredients.label|ui_title }}</label>
+    {{ form.available_ingredients }}
+  </div>
+  <div>
+    <label for="{{ form.cooking_time.id_for_label }}">{% ui_title 'target time (min)' %}</label>
+    {{ form.cooking_time }}
+  </div>
+  <div>
+    <label for="{{ form.flavor_preference.id_for_label }}">{{ form.flavor_preference.label|ui_title }}</label>
+    {{ form.flavor_preference }}
+  </div>
+  <div>
+    <label for="{{ form.cuisine_preference.id_for_label }}">{{ form.cuisine_preference.label|ui_title }}</label>
+    {{ form.cuisine_preference }}
+  </div>
+  <div>
+    <label for="{{ form.health_goal.id_for_label }}">{{ form.health_goal.label|ui_title }}</label>
+    {{ form.health_goal }}
+  </div>
+  {% include 'core/partials/ai/progress.html' with progress_title='Creating your recipe' progress_stage='Thinking through your ingredients with care...' progress_aria_label='AI generation progress' %}
+  {% if not available_models %}
+    <div class="full action-row ai-model-availability-row">
+      <span class="meta">No local model is ready yet. Pull or enable one in Ollama to continue.</span>
+    </div>
+  {% endif %}
+</form>

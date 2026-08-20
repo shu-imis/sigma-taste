@@ -1,0 +1,59 @@
+{% load ui_copy %}
+<form method="post" class="form-grid panel-form">
+  {% csrf_token %}
+
+  {% if profile_form.errors or pref_form.errors %}
+    <div class="full msg error" role="alert" aria-live="assertive" data-feedback-block data-feedback-kind="form-error">
+      {% include 'core/partials/feedback/form_errors.html' with form=profile_form %}
+      {% include 'core/partials/feedback/form_errors.html' with form=pref_form %}
+    </div>
+  {% endif %}
+
+  {% include 'core/partials/layout/editor_section_head.html' with is_first=True kicker='Identity' title='How you appear to other cooks' subtitle='These details help your recipes feel personal rather than anonymous.' %}
+  <div>
+    <label for="profile-username">{% ui_title 'username' %}</label>
+    <input id="profile-username" type="text" value="{{ request.user.username }}" readonly>
+  </div>
+  <div>
+    <label for="profile-email">{% ui_title 'email' %}</label>
+    <input id="profile-email" type="email" value="{{ request.user.email }}" readonly>
+  </div>
+  <div>
+    <label for="{{ profile_form.first_name.id_for_label }}">{{ profile_form.first_name.label|ui_title }}</label>
+    {{ profile_form.first_name }}
+  </div>
+  <div>
+    <label for="{{ profile_form.last_name.id_for_label }}">{{ profile_form.last_name.label|ui_title }}</label>
+    {{ profile_form.last_name }}
+  </div>
+  <div class="full">
+    <label for="{{ profile_form.bio.id_for_label }}">{{ profile_form.bio.label|ui_title }}</label>
+    {{ profile_form.bio }}
+  </div>
+
+  {% include 'core/partials/layout/editor_section_head.html' with kicker='Taste signals' title='What your kitchen tends to lean toward' subtitle='A small portrait of flavor, health goals, and dietary boundaries.' %}
+  <div>
+    <label class="checkbox-line">{{ pref_form.spicy }} {% ui_title 'i enjoy spicy dishes' %}</label>
+  </div>
+  <div>
+    <label class="checkbox-line">{{ pref_form.sweet }} {% ui_title 'i enjoy sweet dishes' %}</label>
+  </div>
+  <div>
+    <label class="checkbox-line">{{ pref_form.sour }} {% ui_title 'i enjoy sour dishes' %}</label>
+  </div>
+  <div>
+    <label for="{{ pref_form.health_goal.id_for_label }}">{{ pref_form.health_goal.label|ui_title }}</label>
+    {{ pref_form.health_goal }}
+  </div>
+  <div class="full">
+    <label for="{{ pref_form.allergies.id_for_label }}">{% ui_title 'allergies (comma-separated)' %}</label>
+    {{ pref_form.allergies }}
+  </div>
+  <div class="full">
+    <label for="{{ pref_form.preferred_cuisines.id_for_label }}">{% ui_title 'preferred cuisines (comma-separated)' %}</label>
+    {{ pref_form.preferred_cuisines }}
+  </div>
+  <div class="full action-row form-actions">
+    <button class="btn btn-primary" type="submit">{% ui_label 'Save profile' %}</button>
+  </div>
+</form>

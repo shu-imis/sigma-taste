@@ -1,0 +1,7 @@
+{% extends 'core/base.html' %}
+{% load ui_copy %}
+{% block title %}{% ui_label 'Create account' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  {% include 'core/partials/auth/shell.html' with hero_kicker='Join the kitchen' hero_title='Create account' hero_description='Create a profile to share recipes, shape your preferences, and take part in a more thoughtful kitchen conversation.' panel_title='Create account' panel_subtitle='Start with a few essentials and make the space your own.' auth_form_partial='core/partials/auth/register_form.html' %}
+{% endblock %}

@@ -1,0 +1,4 @@
+{% load ui_copy %}
+<span class="hero-kicker">{% ui_label hero_kicker %}</span>
+<h1>{% if hero_title_case == 'title' %}{{ hero_title|ui_title }}{% elif hero_title_case == 'raw' %}{{ hero_title }}{% else %}{% ui_label hero_title %}{% endif %}</h1>
+<p>{{ hero_description }}</p>

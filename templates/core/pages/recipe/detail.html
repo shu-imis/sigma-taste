@@ -1,0 +1,99 @@
+{% extends 'core/base.html' %}
+{% load number_format ui_copy %}
+{% block title %}{% ui_label 'Recipe details' %} · {% ui_label 'Sigma Taste' %}{% endblock %}
+
+{% block content %}
+  <section class="hero hero-group-detail">
+    {% include 'core/partials/layout/hero_intro.html' with hero_kicker='Recipe story' hero_title=recipe.title hero_title_case='title' hero_description=recipe.description|default:'There is no story here yet, but the recipe is ready for someone to cook from.' %}
+    {% include 'core/partials/layout/hero_support.html' with hero_meta_tokens=hero_meta_tokens hero_meta_note=hero_meta_note hero_badges=hero_badges %}
+    {% if can_manage_recipe or can_delete_recipe %}
+      <div class="action-row top-space-sm recipe-admin-actions">
+        {% if can_manage_recipe %}
+          {% if recipe.status != 'published' %}
+            <form method="post" action="{% url 'web-recipe-status' recipe.id %}" class="inline-form inline-form-flat">
+              {% csrf_token %}
+              <input type="hidden" name="status" value="published">
+              <button class="btn btn-primary" type="submit">{% ui_label 'Publish recipe' %}</button>
+            </form>
+          {% endif %}
+          {% if recipe.status != 'blocked' %}
+            <form method="post" action="{% url 'web-recipe-status' recipe.id %}" class="inline-form inline-form-flat">
+              {% csrf_token %}
+              <input type="hidden" name="status" value="blocked">
+              <button class="btn btn-ghost" type="submit">{% ui_label 'Block recipe' %}</button>
+            </form>
+          {% endif %}
+        {% endif %}
+        {% if can_delete_recipe %}
+          <form method="post" action="{% url 'web-recipe-delete' recipe.id %}" class="inline-form inline-form-flat recipe-admin-remove">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit" data-confirm-submit="Remove this recipe from your shared kitchen?">{% ui_label 'Remove recipe' %}</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+
+  <div class="split top-space">
+    <section>
+      {% include 'core/partials/recipe/ingredients_card.html' with container_class='panel recipe-info-card recipe-info-card-ingredients' heading_level='2' title='Ingredients' subtitle='Everything needed to make this well' items=recipe.ingredients.all empty_text='Ingredients will appear here once they are added.' %}
+      {% include 'core/partials/recipe/steps_card.html' with container_class='panel recipe-info-card recipe-info-card-steps' heading_level='2' title='Steps' subtitle='The full cooking flow' steps=recipe.steps empty_text='Steps will appear here once they are added.' %}
+    </section>
+
+    <aside>
+      {% include 'core/partials/layout/panel_shell.html' with heading_level='3' panel_title='Add your review' panel_body_partial='core/partials/recipe/review_panel_body.html' %}
+    </aside>
+  </div>
+
+  {% include 'core/partials/layout/page_section_head.html' with title='Community notes' %}
+  <div class="cards cards-reviews">
+    {% for review in reviews %}
+      <article class="card review-card">
+        <header class="review-card-head">
+          <div class="review-author">
+            {% if review.is_anonymous %}
+              {% include 'core/partials/layout/avatar_badge.html' with avatar_class='review-avatar' avatar_source='Anonymous' aria_hidden=1 %}
+            {% else %}
+              {% include 'core/partials/layout/avatar_badge.html' with avatar_class='review-avatar' avatar_source=review.user.username|default:'Former member' aria_hidden=1 %}
+            {% endif %}
+            <div class="review-author-meta">
+              <strong class="review-name">{% if review.is_anonymous %}Anonymous user{% else %}{{ review.user.username|default:'Former member' }}{% endif %}</strong>
+              <span class="meta review-time">{{ review.created_at|date:"Y-m-d H:i" }}</span>
+            </div>
+          </div>
+          <div class="review-rating" aria-label="Rating {{ review.rating|floatformat:1 }} out of 5">{{ review.rating|floatformat:1 }} / 5.0</div>
+        </header>
+
+        <div class="card-body review-card-body">
+          <p class="review-content">{{ review.content|default:'This cook did not leave a written note.' }}</p>
+          {% if review.reaction_summary %}
+            <ul class="review-reaction-summary" aria-label="Current reactions">
+              {% for emoji, count in review.reaction_summary %}
+                <li class="review-reaction-pill"><span>{{ emoji }}</span><strong>{{ count|compact_number }}</strong></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        {% if request.user.is_authenticated %}
+          <footer class="card-foot review-card-foot">
+            <span class="review-reaction-label">{% ui_label 'Share a reaction' %}</span>
+            <form method="post" action="{% url 'web-review-react' review.id %}" class="inline-form inline-form-flat review-reaction-form">
+              {% csrf_token %}
+              {% for emoji in reaction_emoji_options %}
+                <button class="btn btn-ghost{% if review.viewer_reaction == emoji %} is-active{% endif %}" type="submit" name="emoji" value="{{ emoji }}" aria-label="React with {{ emoji }}" title="React with {{ emoji }}">{{ emoji }}</button>
+              {% endfor %}
+            </form>
+          </footer>
+        {% endif %}
+      </article>
+    {% empty %}
+      {% include 'core/partials/feedback/block.html' with surface='empty' feedback_kind='empty' role='status' live='polite' text='No notes yet. If you make it, a short note could help the next cook.' %}
+    {% endfor %}
+  </div>
+  {% include 'core/partials/layout/pagination.html' with page_obj=review_page base_querystring=review_querystring page_param='review_page' aria_label='Review list pages' %}
+{% endblock %}
+
+{% block extra_script %}
+  {% include 'core/partials/scripts/confirm_submit.html' %}
+{% endblock %}
